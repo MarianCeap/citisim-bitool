@@ -1,0 +1,226 @@
+<html>
+    <head>
+        <title>ChartJS</title>
+        <!-- JQuery-->
+        <script src="scripts/jquery-3.3.1.js"></script>
+
+        <!-- ChartJS -->
+        <script src="scripts/ChartJS/Chart.bundle.js"></script>
+
+        <!-- SemanticUI  -->
+        <script src="scripts/SemanticUI/semantic.min.js"></script>
+        <link rel="stylesheet" href="scripts/SemanticUI/semantic.min.css">
+    </head>
+    <body style="margin-left:2%; margin-right:2%; margin-top:2%; background: #222; color: white">
+        <script type="text/javascript">
+            function changeMenu(menu){
+                document.getElementById("bills").setAttribute("class","item");
+                document.getElementById("table").setAttribute("class","item");
+                document.getElementById("bar").setAttribute("class","item");
+                document.getElementById("doughnut").setAttribute("class","item");
+                document.getElementById(menu).setAttribute("class","active item");
+
+                document.getElementById("bills").setAttribute("style","background:#222");
+                document.getElementById("table").setAttribute("style","background:#222");
+                document.getElementById("bar").setAttribute("style","background:#222");
+                document.getElementById("doughnut").setAttribute("style","background:#222");
+                document.getElementById(menu).setAttribute("style","background:#767676");
+
+
+                document.getElementById("bills-segment").setAttribute("style","display:none");
+                document.getElementById("table-segment").setAttribute("style","display:none");
+                document.getElementById("bar-segment").setAttribute("style","display:none");
+                document.getElementById("doughnut-segment").setAttribute("style","display:none");
+                document.getElementById(menu + "-segment").setAttribute("style","");
+
+            }
+
+        </script>
+        <div class="ui grid">
+            <div class="two wide column">
+                  <div class="ui vertical fluid tabular inverted menu">
+                      <a id="bills" class="active item" onclick="changeMenu('bills')"  style="background:#767676">
+                          Bills
+                      </a>
+                      <a id="table" class="item" onclick="changeMenu('table')">
+                          Table
+                      </a>
+                      <a id="bar" class="item" onclick="changeMenu('bar')">
+                          Bar Chart
+                      </a>
+                      <a id="doughnut" class="item" onclick="changeMenu('doughnut')">
+                          Doughnut Chart
+                      </a>
+                  </div>
+              </div>
+              <div class="fourteen wide stretched column">
+                  <div id="bills-segment">
+                      This is an stretched grid column. This segment will always match the tab height
+                      <br /> Bills
+                  </div>
+                  <div id="table-segment" style="display:none">
+                      <table class="ui striped celled selectable inverted table">
+                          <thead>
+                              <tr>
+                                  <th>Nr. Crt.</th>
+                                  <th>Column 1</th>
+                                  <th>Column 2</th>
+                                  <th>Column 3</th>
+                                  <th>Final column</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                             <tr>
+                                 <td>1</td>
+                                 <td>Value 1.1</td>
+                                 <td>Value 1.2</td>
+                                 <td>Value 1.3</td>
+                                 <td>Final Value 1</td>
+                             </tr>
+                             <tr>
+                                 <td>1</td>
+                                 <td>Value 2.1</td>
+                                 <td>Value 2.2</td>
+                                 <td>Value 2.3</td>
+                                 <td>Final Value 2</td>
+                             </tr>
+                             <tr>
+                                 <td>1</td>
+                                 <td>Value 3.1</td>
+                                 <td>Value 3.2</td>
+                                 <td>Value 3.3</td>
+                                 <td>Final Value 3</td>
+                             </tr>
+                             <tr>
+                                 <td>1</td>
+                                 <td>Value 4.1</td>
+                                 <td>Value 4.2</td>
+                                 <td>Value 4.3</td>
+                                 <td>Final Value 4</td>
+                             </tr>
+                             <tr>
+                                 <td>1</td>
+                                 <td>Value 5.1</td>
+                                 <td>Value 5.2</td>
+                                 <td>Value 5.3</td>
+                                 <td>Final Value 5</td>
+                             </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div id="bar-segment"  style="display:none">
+                      <canvas id="bar-chart-canvas"></canvas>
+                      <script type="text/javascript">
+                      var barCtx = document.getElementById('bar-chart-canvas').getContext('2d');
+                      window.barChart = new Chart(barCtx, {
+                          // The type of chart we want to create
+                          type: 'bar',
+
+                          // The data for our dataset
+                          data: {
+                              labels: ["January", "February", "March", "April", "May", "June", "July"],
+                              datasets: [{
+                                  label: "My First dataset",
+                                  backgroundColor: 'rgb(255, 99, 132)',
+                                  borderColor: 'rgb(99, 255, 132)',
+                                  borderWidth: 1,
+                                  data: [0, 10, 5, 2, 20, 30, 45],
+                              }, {
+                                  label: "My Second dataset",
+                                  backgroundColor: 'rgb(99, 255, 132)',
+                                  borderColor: 'rgb(255, 99, 132)',
+                                  borderWidth: 1,
+                                  data: [3, 1, 8, 6, 25, 11, 21]
+                              }]
+                          },
+
+                          // Configuration options go here
+                          options: {
+                              responsive: true,
+                              scales: {
+                                  xAxes: [{
+                                      ticks: {
+                                          fontColor: "white",
+                                          fontSize: 18
+                                      },
+                                      gridLines: {
+                                          color: "grey"
+                                      }
+                                  }],
+                                  yAxes: [{
+                                      ticks: {
+                                          fontColor: "white",
+                                          fontSize: 18
+                                      },
+                                      gridLines: {
+                                          color: "grey"
+                                      }
+                                  }]
+                              }
+                          }
+                      });
+                      </script>
+
+                  </div>
+                  <div id="doughnut-segment"  style="display:none">
+                      <canvas id="bar-chart-canvas"></canvas>
+                  </div>
+              </div>
+          </div>
+
+
+        <!-- <table width="100%">
+            <tr>
+                <td width="50%">
+                    <canvas id="myChart"></canvas>
+                </td>
+                <td  width="100%">
+                    <canvas id="myChart2"></canvas>
+                </td>
+            </tr>
+        </table> -->
+
+        <!-- <script type="text/javascript">
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: 'rgb(99, 255, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx2 = document.getElementById('myChart2').getContext('2d');
+            var chart2 = new Chart(ctx2, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(99, 255, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+        </script> -->
+    </body>
+</html>

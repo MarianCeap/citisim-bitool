@@ -1,0 +1,234 @@
+<html>
+    <head>
+        <title>ChartJS</title>
+        <script src="/static/scripts/jquery-3.3.1.js"></script>
+        <script src="/static/scripts/ChartJS/Chart.bundle.js"></script>
+        <script src="/static/scripts/SemanticUI/semantic.min.js"></script>
+        <link rel="stylesheet" href="/static/scripts/SemanticUI/semantic.min.css">
+
+
+        <link rel="stylesheet" href="/static/style.css">
+        <script src="/static/scripts/Custom/newScenario.js"></script>
+        <script src="/static/scripts/Custom/newRule.js"></script>
+    </head>
+
+
+
+    <body onload="getScenarios(); getRules();">
+        <div align="center">
+            <p style="font-size: 60px"><strong>
+                CitiSim
+            </strong></p>
+        </div>
+        <br><br><br>
+
+        <div class="ui inverted horizontal divider">
+            <strong style="font-size: 24px;">
+                Scenarios
+            </strong>
+        </div>
+        <br>
+
+        <div class="floating-button" data-content="Add New Scenario" onclick="launchNSModal()">
+            <i class="plus icon" style="margin-top:20px; margin-left: 10px; font-size:35px;"></i>
+        </div>
+
+        <div id="scenariosSegment">
+            <!-- Aici se vor adauga automat toate scenariile -->
+            <!--<div class="" id="scenario_0" >
+              <i  class='close icon pointed'  data-content="Remove Scenario" onclick="launchRMVSModal(0);"></i>
+                      <i  class='edit icon pointed'  data-content="Edit Scenario" onclick='launchRLSModal(0)'></i>
+                    <div  id="scenario_0" class="ui segment" style="color:black">
+                              <div class='ui two column very relaxed divided grid'>
+                                  <div class='column' style='width:30%'>
+                                      <h4 ><strong> name </strong></h4>
+                                      Value:  value  valueType<br>
+                                      Duration:  duration  durationType <br>
+                                      description
+                                  </div>
+                                  <div class='column' style='width:70%'>
+                                      <div class='ui grid'>
+                                          <div id='rulesCol_0' class='fourteen wide column' style='padding-left:0; padding-right:0;'>
+                                              <h4><strong>Rules</strong></h4>
+                                          </div>
+                                          <div class='two wide column' align='right' style='padding-left:0'>
+                                              <i  id='addRuleButton' class='plus icon'  data-content="Add New Rule" onclick='launchRLSModal(0)'></i>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                  </div>
+            <br> -->
+
+        </div>
+
+
+
+        <div class="ui basic modal RLS">
+            <div class="ui icon header">
+                <i class="balance scale icon"></i>
+                Add New Rule
+            </div>
+            <div class="content" align="center">
+                <input id="nrID" type="hidden">
+                <div class="ui labeled inverted input" style="margin: 10px;">
+                    <div class="ui label" style="width:90px">Name *</div>
+                    <input id="nrName" type="text" placeholder="Rule Name" style="width:410px">
+                </div>
+                <br>
+                <div class="ruleInput" >
+                  <strong style="font-size:20px">If the savings are between</strong>
+                  <div class="ui right labeled inverted input" style="margin: 10px;">
+                      <input id="nrMin" type="text" placeholder="Min" style="width:60px">
+                      <div class="ui basic label">%</div>
+                  </div>
+                  <strong style="font-size:20px">and</strong>
+                  <div class="ui right labeled inverted input" style="margin: 10px;">
+                      <input id="nrMax" type="text" placeholder="Max" style="width:60px">
+                      <div class="ui basic label">%</div>
+                  </div>
+                  <br>
+                  <strong style="font-size:20px">then</strong>
+                  <div class="ui right labeled inverted input" style="margin: 10px;">
+                      <input id="nrEsco" type="text" placeholder="Sharing ESCO" style="width:120px">
+                      <div class="ui basic label">%</div>
+                  </div>
+                  <strong style="font-size:20px">and</strong>
+                  <div class="ui right labeled inverted input" style="margin: 10px;">
+                      <input id="nrClient" type="text" placeholder="Sharing Client" style="width:120px">
+                      <div class="ui basic label">%</div>
+                  </div>
+                </div>
+                <p>
+                  * All fields are required
+                </p>
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button" onclick="nrModalCancel()">
+                    <i class="remove icon"></i>
+                    Cancel
+                </div>
+                <div class="ui green ok inverted button" onclick="nrModalAdd()">
+                    <i class="checkmark icon"></i>
+                    Add
+                </div>
+            </div>
+      </div>
+
+
+
+
+        <!-- Modal -->
+        <div class="ui basic modal NS">
+            <div class="ui icon header">
+                <i class="chart line icon"></i>
+                Add New Scenario
+            </div>
+            <div class="content" align="center">
+                <input id="nsID" type="hidden">
+                <div class="ui labeled inverted input" style="margin: 10px;">
+                    <div class="ui label" style="width:90px">Name *</div>
+                    <input id="nsName" type="text" placeholder="Scenario Name" style="width:410px">
+                </div>
+                <br>
+                <div class="ui right labeled inverted input" style="margin: 10px;">
+                    <div class="ui label" style="width:90px">Value *</div>
+                    <input id="nsValue" type="number" step="0.01" placeholder="Value of initial investment" style="width:315px">
+                    <div class="ui dropdown label" style="width:95px;">
+                        <div id="nsValueType" class="text">RON</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">RON</div>
+                            <div class="item">EUR</div>
+                            <div class="item">USD</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="ui right labeled inverted input" style="margin: 10px;">
+                    <div class="ui label" style="width:90px">Duration *</div>
+                    <input id="nsDuration" type="number" step="1" placeholder="Duration of the contract" style="width:315px">
+                    <div class="ui dropdown label" style="width:95px">
+                        <div id="nsDurationType" class="text">Months</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">Days</div>
+                            <div class="item">Months</div>
+                            <div class="item">Years</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="ui inverted input" style="margin: 10px;">
+                    <textarea id="nsDescription" class="ui" rows="5" placeholder="Type a brief description" style="width:500px; resize:none; border-radius: .28571429rem;"> </textarea>
+                </div>
+                <p>
+                  * Required fields
+                </p>
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button" onclick="nsModalCancel()">
+                    <i class="remove icon"></i>
+                    Cancel
+                </div>
+                <div id="nsAddBtn" class="ui green ok inverted button" onclick="nsModalAdd()">
+                    <i class="checkmark icon"></i>
+                    Add
+                </div>
+                <div id="nsSaveBtn" class="ui green ok inverted button" onclick="nsModalSave()">
+                    <i class="checkmark icon"></i>
+                    Save
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ui basic modal RMVS">
+            <div class="ui icon header">
+                <i class="close icon"></i>
+                Are you sure you want to remove this scenario?
+            </div>
+            <div class="content" align="center">
+                <input id="rmvID" type="hidden">
+            </div>
+            <div class="actions">
+                <div class="ui green ok inverted button" onclick="rmvModalYes()">
+                    <i class="checkmark icon"></i>
+                    YES
+                </div>
+                <div class="ui red basic cancel inverted button">
+                    <i class="remove icon"></i>
+                    NO
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ui basic modal RMVR">
+            <div class="ui icon header">
+                <i class="close icon"></i>
+                Are you sure you want to remove this rule?
+            </div>
+            <div class="content" align="center">
+                <input id="rmvrID" type="hidden">
+            </div>
+            <div class="actions">
+                <div class="ui green ok inverted button" onclick="rmvrModalYes()">
+                    <i class="checkmark icon"></i>
+                    YES
+                </div>
+                <div class="ui red basic cancel inverted button">
+                    <i class="remove icon"></i>
+                    NO
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $('.ui.dropdown').dropdown();
+            $('i').popup({on: 'hover'});
+            $('div').popup({on: 'hover'});
+        </script>
+    </body>
+</html>

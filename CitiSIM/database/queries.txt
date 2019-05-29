@@ -1,0 +1,27 @@
+insert into BasicOutput (BillName,
+                         BaselineBill,
+                         CurrentBill,
+                         SavingsMU,
+                         SavingsPercent,
+                         AmountReturned,
+                         AmountYetToBeReturned,
+                         ROI,
+                         IRR,
+                         NPV,
+                         ESCO,
+                         Client)
+                  values ('Bill2',
+                          23000,
+                          17500,
+                          5500,
+                          23.91,
+                          11500,
+                          48500,
+                          19.17,
+                          -80,
+                          -47536.57,
+                          2750,
+                          2750);
+
+
+select s.ID, s.Name, (select count(OutputID) from BasicOutput b where b.ScenarioID = s.ID) as len from Scenarios s;
